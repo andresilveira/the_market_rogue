@@ -1,0 +1,2 @@
+module TalonRo::SellingShopsHelper
+end

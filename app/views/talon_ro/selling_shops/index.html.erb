@@ -1,0 +1,40 @@
+<h1>Selling Shops</h1>
+
+<%= form_tag(talon_ro_selling_shops_search_path, method: :get) do %>
+  <%= label_tag :item_name, 'Search for: ' %>
+  <%= text_field_tag :item_name, params[:item_name], placeholder: 'Item name' %>
+  <%= submit_tag 'Search' %>
+<% end %>
+
+<br>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Cards</th>
+      <th>Price</th>
+      <th>Amount</th>
+      <th>Vendor</th>
+      <th>Shop Title</th>
+      <th>Coords</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% Array(@results).each do |item| %>
+    <tr>
+      <% item_name = '' %>
+      <% item_name += "+#{item[:refinement]} " if item[:refinement] > 0 %>
+      <% item_name += item[:item_name] %>
+      <% item_name += " [#{item[:slots]}]" if item[:slots] > 0 %>
+      <td><%= item_name %></td>
+      <td><%= item[:cards].join("<br>").html_safe %></td>
+      <td><%= item[:price] %></td>
+      <td><%= item[:amount] %></td>
+      <td><%= item[:vendor] %></td>
+      <td><%= item[:shop_title] %></td>
+      <td><%= item[:coords] %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
