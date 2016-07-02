@@ -19,10 +19,5 @@ RSpec.describe TalonRo::SellingShopsController, type: :controller do
       post :search
       expect(response).to have_http_status(:success)
     end
-
-    it "assigns an array to @results" do
-      post :search
-      expect(assigns(:results)).to eq([])
-    end
   end
 end
