@@ -1,12 +1,13 @@
 class TalonRO::SellingShopsController < ApplicationController
   def index
+    @offers = Offer.all
   end
 
   def search
     # TODO: move the market offer gethering (and persisting)
     # away from the controller
-    @results = market_agent.scrap(params[:item_name])
-    # @results.each { |offer| Offer.create(MarketAdapters::TalonRo.new(offer)) }
+    results = market_agent.scrap(params[:item_name])
+    @offers = results.map { |o| Offer.create(MarketAdapters::TalonRO.new(o).to_h) }
 
     render :index
   end

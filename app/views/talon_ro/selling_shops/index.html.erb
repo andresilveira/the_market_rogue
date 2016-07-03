@@ -21,20 +21,20 @@
     </tr>
   </thead>
   <tbody>
-    <% Array(@results).each do |item| %>
+    <% @offers.each do |offer| %>
     <tr>
-      <% item_name = '' %>
-      <% item_name += "+#{item[:refinement]} " if item[:refinement] > 0 %>
-      <% item_name += item[:item_name] %>
-      <% item_name += " [#{item[:slots]}]" if item[:slots] > 0 %>
-      <td><%= item_name %></td>
-      <td><%= item[:cards].join("<br>").html_safe %></td>
-      <td><%= item[:price] %></td>
-      <td><%= item[:amount] %></td>
-      <td><%= item[:vendor] %></td>
-      <td><%= item[:shop_title] %></td>
-      <td><%= item[:coords] %></td>
+      <td><%= offer.full_item_name %></td>
+      <td><%= offer.cards %></td>
+      <td><%= offer.price %></td>
+      <td><%= offer.amount %></td>
+      <td><%= offer.vendor %></td>
+      <td><%= offer.shop_title %></td>
+      <td><%= offer.map_location %></td>
     </tr>
     <% end %>
   </tbody>
 </table>
+
+<br>
+
+<%= link_to "← back", root_path %>
