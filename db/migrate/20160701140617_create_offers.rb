@@ -1,7 +1,9 @@
-class CreateOffers < ActiveRecord::Migration
+class CreateOffers < ActiveRecord::Migration[5.0]
   def change
     create_table :offers do |t|
       t.string :item_name
+      t.integer :slots
+      t.integer :refinement
       t.string :cards
       t.integer :price
       t.integer :amount
@@ -11,15 +13,5 @@ class CreateOffers < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-
-    create_index :offers, [
-      :item_name,
-      :cards,
-      :price,
-      :amount,
-      :vendor,
-      :shop_title,
-      :map_location
-    ], unique: true
   end
 end
