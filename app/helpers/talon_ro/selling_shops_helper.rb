@@ -1,2 +1,2 @@
-module TalonRo::SellingShopsHelper
+module TalonRO::SellingShopsHelper
 end

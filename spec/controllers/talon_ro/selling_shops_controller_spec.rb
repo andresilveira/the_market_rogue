@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe TalonRo::SellingShopsController, type: :controller do
+RSpec.describe TalonRO::SellingShopsController, type: :controller do
 
   describe "GET #index" do
     it "returns http success" do

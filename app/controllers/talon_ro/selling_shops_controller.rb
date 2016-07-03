@@ -1,4 +1,4 @@
-class TalonRo::SellingShopsController < ApplicationController
+class TalonRO::SellingShopsController < ApplicationController
   def index
   end
 
