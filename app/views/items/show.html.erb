@@ -1,0 +1,7 @@
+<h1><%= @item.name %></h1>
+
+<legend>Offers</legend>
+<hr />
+<%= render 'offers/table', offers: @item.offers %>
+<br>
+<%= link_to "←  all items", items_path %>

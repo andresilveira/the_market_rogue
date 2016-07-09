@@ -1,5 +1,7 @@
 class Offer < ActiveRecord::Base
 
+  belongs_to :item
+
   validates :item_name, uniqueness: { scope: [
     :slots,
     :refinement,

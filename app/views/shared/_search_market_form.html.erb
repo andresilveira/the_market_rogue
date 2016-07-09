@@ -1,0 +1,5 @@
+<%= form_tag(market_url, method: :get) do %>
+  <%= label_tag :item_name, 'Search for: ' %>
+  <%= text_field_tag :item_name, params[:item_name], placeholder: 'Item name' %>
+  <%= submit_tag 'Search' %>
+<% end %>

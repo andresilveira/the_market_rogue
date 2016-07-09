@@ -1,0 +1,19 @@
+<h1>Items</h1>
+
+<%= render 'shared/search_market_form', market_url: talon_ro_selling_shops_search_path%>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @items.each do |item| %>
+      <tr>
+        <td><%= link_to item.name, item_path(item) %></td>
+        <td><%= link_to '× delete', item_path(item), class: 'danger', method: :delete, data: { confirm: 'All offers will be delete as well. Are you sure?' } %>
+    <% end %>
+  </tbody>
+</table>

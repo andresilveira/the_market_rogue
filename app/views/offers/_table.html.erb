@@ -1,13 +1,3 @@
-<h1>Selling Shops</h1>
-
-<%= form_tag(talon_ro_selling_shops_search_path, method: :get) do %>
-  <%= label_tag :item_name, 'Search for: ' %>
-  <%= text_field_tag :item_name, params[:item_name], placeholder: 'Item name' %>
-  <%= submit_tag 'Search' %>
-<% end %>
-
-<br>
-
 <table>
   <thead>
     <tr>
@@ -21,9 +11,9 @@
     </tr>
   </thead>
   <tbody>
-    <% @offers.each do |offer| %>
+    <% offers.each do |offer| %>
     <tr>
-      <td><%= offer.full_item_name %></td>
+      <td><%= link_to offer.full_item_name, item_path(offer.item_id) %></td>
       <td><%= offer.cards %></td>
       <td><%= offer.price %></td>
       <td><%= offer.amount %></td>
@@ -34,7 +24,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to "← back", root_path %>
