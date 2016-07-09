@@ -1,0 +1,26 @@
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Cards</th>
+      <th>Price</th>
+      <th>Amount</th>
+      <th>Vendor</th>
+      <th>Shop Title</th>
+      <th>Coords</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% offers.each do |offer| %>
+    <tr>
+      <td><%= offer.full_item_name %></td>
+      <td><%= offer.cards %></td>
+      <td><%= offer.price %></td>
+      <td><%= offer.amount %></td>
+      <td><%= offer.vendor %></td>
+      <td><%= offer.shop_title %></td>
+      <td><%= offer.map_location %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

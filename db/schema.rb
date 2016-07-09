@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160701140617) do
+ActiveRecord::Schema.define(version: 20160709094416) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "items", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "markets", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "offers", force: :cascade do |t|
     t.string   "item_name"
@@ -27,6 +39,8 @@ ActiveRecord::Schema.define(version: 20160701140617) do
     t.string   "map_location"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.integer  "item_id"
+    t.index ["item_id"], name: "index_offers_on_item_id", using: :btree
   end
 
 end

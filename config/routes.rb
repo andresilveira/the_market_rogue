@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :items, only: [:index, :show, :destroy]
+
   namespace :talon_ro do
     namespace :selling_shops do
       get '/', action: :index
