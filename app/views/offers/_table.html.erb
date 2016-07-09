@@ -13,7 +13,7 @@
   <tbody>
     <% offers.each do |offer| %>
     <tr>
-      <td><%= offer.full_item_name %></td>
+      <td><%= link_to offer.full_item_name, item_path(offer.item_id) %></td>
       <td><%= offer.cards %></td>
       <td><%= offer.price %></td>
       <td><%= offer.amount %></td>

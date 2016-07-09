@@ -1,8 +1,4 @@
 class TalonRO::SellingShopsController < ApplicationController
-  def index
-    @offers = Offer.all
-  end
-
   def search
     # TODO: move the market offer gethering (and persisting)
     # away from the controller
@@ -13,7 +9,7 @@ class TalonRO::SellingShopsController < ApplicationController
       offers.map { |o| Offer.create(MarketAdapters::TalonRO.new(o).to_h.merge({ item_id: item.id })) }
     end
 
-    render :index
+    render :search
   end
 
   private
