@@ -22,9 +22,8 @@ class OffersGrabber
 
   def create_offer_for_item item_id, offer_attributes
     adapted_offer_attributes = MarketAdapters::TalonRO.new(offer_attributes).to_h
-    offer = Offer.new(adapted_offer_attributes)
-    offer.item_id = item_id
-    offer.save
+    adapted_offer_attributes[:item_id] = item_id
+    Offer.create(adapted_offer_attributes)
   end
 
   def market_agent

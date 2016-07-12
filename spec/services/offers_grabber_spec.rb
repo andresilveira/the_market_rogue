@@ -29,16 +29,12 @@ RSpec.describe OffersGrabber do
   end
 
   describe 'when there are offers' do
-    before do
-      stub_market_rogue [existing_item_offer]
-      OffersGrabber.new(existing_item.name)
-    end
+    before { stub_market_rogue [existing_item_offer] }
+    let!(:grabber) { OffersGrabber.new(existing_item.name) }
 
     describe 'for a non existent item' do
-      before do
-        stub_market_rogue [offer_non_existing_item]
-        OffersGrabber.new(new_item.name)
-      end
+      before { stub_market_rogue [offer_non_existing_item] }
+      let!(:grabber) { OffersGrabber.new(new_item.name) }
 
       it 'creates the item' do
         expect(Item.find_by(name: new_item.name)).to_not be_nil
@@ -52,6 +48,10 @@ RSpec.describe OffersGrabber do
     it 'attributes the offers to the item' do
       offer = Offer.where(offer_fields).first
       expect(offer.item.id).to eq(existing_item.id)
+    end
+
+    it '#offers should contain the offer with the existing item' do
+      expect(grabber.offers).to eq(Offer.all.to_a)
     end
   end
 end
