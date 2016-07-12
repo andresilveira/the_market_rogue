@@ -9,7 +9,8 @@ class Offer < ActiveRecord::Base
     :price,
     :vendor,
     :shop_title,
-    :map_location
+    :map_location,
+    :type
   ]}
 
   def full_item_name
