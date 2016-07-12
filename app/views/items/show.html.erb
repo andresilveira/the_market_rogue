@@ -1,5 +1,5 @@
 <h1><%= @item.name %></h1>
-
+<div id="chart_div" data-offers="<%= @item.offers.to_json %>"></div>
 <legend>Offers</legend>
 <hr />
 <%= render 'offers/table', offers: @item.offers %>
