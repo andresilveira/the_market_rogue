@@ -21,6 +21,7 @@ $(function(){
       width: 900,
       height: 500,
       hAxis: {
+        gridlines: -1,
         format: 'M/d/yyyy',
       },
       vAxis: {
@@ -30,7 +31,7 @@ $(function(){
       trendlines: { 0: {} }
     };
 
-    data.addColumn('date', 'Date');
+    data.addColumn('datetime', 'Date');
     data.addColumn('number', 'Price');
     data.addRows(offerData());
     chart.draw(data, options);
