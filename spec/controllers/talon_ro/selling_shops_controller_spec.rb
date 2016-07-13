@@ -2,12 +2,9 @@ require 'rails_helper'
 
 RSpec.describe TalonRO::SellingShopsController, type: :controller do
   describe 'GET #search' do
-    before do
-      @market_agent_double = double(scrap: [])
-      allow(@controller).to receive(:market_agent) { @market_agent_double }
-    end
-
     it "returns http success" do
+      allow(OffersGrabber).to receive_message_chain(:new, offers: [])
+
       get :search
       expect(response).to have_http_status(:success)
     end
