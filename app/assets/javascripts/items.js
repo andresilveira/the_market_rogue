@@ -9,8 +9,15 @@ $(function(){
   function offerData() {
     var rawOffers = JSON.parse(chartElement().getAttribute('data-offers'));
     return rawOffers.map(function (offer){
-      return [new Date(offer.created_at), offer.price]
+      return offerToDataPoint(offer);
     });
+  }
+
+  function offerToDataPoint(offer) {
+    return [
+      new Date(offer.created_at),
+      offer.price
+    ];
   }
 
   function drawChart() {
@@ -18,11 +25,9 @@ $(function(){
     var data = new google.visualization.DataTable();
     var options = {
       title: 'Offers over time',
-      width: 900,
-      height: 500,
       hAxis: {
         gridlines: -1,
-        format: 'M/d/yyyy',
+        format: 'M/d',
       },
       vAxis: {
         gridlines: { color: 'none' },
