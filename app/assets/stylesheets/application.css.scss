@@ -70,7 +70,7 @@ h1, h2, h3, h4, h5, h6, label {
 .home-menu li a:hover, .home-menu li a:focus {
   background: none;
   border: none;
-  color: $dark-pastel;
+  color: $blue;
 }
 
 .content-wrapper {
@@ -81,7 +81,6 @@ h1, h2, h3, h4, h5, h6, label {
 .content-head {
   font-weight: 400;
   letter-spacing: 0.1em;
-  margin: 2em 0 1em;
 }
 
 .footer {
@@ -91,6 +90,27 @@ h1, h2, h3, h4, h5, h6, label {
   bottom: 0;
   left: 0;
   padding: 0.5rem;
+}
+
+.button-xsmall {
+  font-size: 70%;
+}
+
+.button-small {
+  font-size: 85%;
+}
+
+.button-large {
+  font-size: 110%;
+}
+
+.button-xlarge {
+  font-size: 125%;
+}
+
+.button-danger {
+  background: $red;
+  color: $light-pastel;
 }
 
 /*
@@ -107,16 +127,10 @@ h1, h2, h3, h4, h5, h6, label {
   .content {
     padding: 1em;
   }
-  /* We can align the menu header to the left, but float the
-   menu items to the right. */
   .home-menu {
     text-align: left;
   }
   .home-menu ul {
     float: right;
-  }
-  /* We remove the border-separator assigned to .l-box-lrg */
-  .l-box-lrg {
-    border: none;
   }
 }

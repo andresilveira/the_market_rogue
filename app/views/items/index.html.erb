@@ -1,12 +1,12 @@
-<h1>Items</h1>
+<h1 class="content-head">Items</h1>
 
 <%= render 'shared/search_market_form', market_url: talon_ro_selling_shops_search_path%>
 
-<table>
+<table class="pure-table pure-table-striped">
   <thead>
     <tr>
-      <th></th>
-      <th></th>
+      <th>Name</th>
+      <th>Tracked</th>
       <th></th>
     </tr>
   </thead>
@@ -14,13 +14,14 @@
     <% @items.each do |item| %>
       <tr>
         <td><%= link_to item.name, item_path(item) %></td>
-        <td>
-          <%= form_for item, namespace: item.id do |f| %>
-            <%= f.label :track_sellers %>
-            <%= f.check_box :track_sellers, { onclick: "$(this.form).submit()" } %>
+        <td class="is-center">
+          <%= form_for item, namespace: item.id, html: { class: 'pure-form' } do |f| %>
+            <%= f.label :track_sellers, class: 'pure-checkbox' do %>
+              <%= f.check_box :track_sellers, onclick: "$(this.form).submit()" %>
+            <% end %>
           <% end %>
         </td>
-        <td><%= link_to '× delete', item_path(item), class: 'danger', method: :delete, data: { confirm: 'All offers will be delete as well. Are you sure?' } %>
+        <td><%= link_to '×', item_path(item), class: 'button-danger button-small pure-button', method: :delete, data: { confirm: 'All offers will be delete as well. Are you sure?' } %>
     <% end %>
   </tbody>
 </table>
