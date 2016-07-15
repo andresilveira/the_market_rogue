@@ -1,15 +1,45 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>TheMarketRogue</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'https://www.gstatic.com/charts/loader.js', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+    <head>
+        <title>TheMarketRogue</title>
+        <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+        <%= stylesheet_link_tag    'http://yui.yahooapis.com/pure/0.6.0/pure-min.css', media: 'all', 'data-turbolinks-track' => true %>
+        <%= stylesheet_link_tag    'http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css', media: 'all', 'data-turbolinks-track' => true %>
+        <!--[if lte IE 8]>
+          <%= stylesheet_link_tag  'http://yui.yahooapis.com/pure/0.6.0/grids-responsive-old-ie-min.css', media: 'all', 'data-turbolinks-track' => true %>
+        <![endif]-->
+        <!--[if gt IE 8]><!-->
+        <%= stylesheet_link_tag  'http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css', media: 'all', 'data-turbolinks-track' => true %>
+        <!--<![endif]-->
 
-<%= yield %>
+        <meta name="description" content="A tarcking tool for Ragnarok market">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
 
-</body>
+        <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+        <%= javascript_include_tag 'https://www.gstatic.com/charts/loader.js', 'data-turbolinks-track' => true %>
+        <%= csrf_meta_tags %>
+    </head>
+    <body>
+      <div class="header">
+        <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+          <%= link_to "TMR", root_path, class: 'pure-menu-heading' %>
+
+          <ul class="pure-menu-list">
+            <li class="pure-menu-item">
+              <%= link_to "Items", root_path, class: 'pure-menu-link' %>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="content-wrapper">
+        <div class="content">
+          <%= yield %>
+        </div>
+        <div class="footer l-box is-center">
+            The Market Rogue
+        </div>
+      </div>
+    </body>
 </html>
