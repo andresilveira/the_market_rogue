@@ -1,5 +1,12 @@
-<%= form_tag(market_url, method: :get) do %>
-  <%= label_tag :item_name, 'Search for: ' %>
-  <%= text_field_tag :item_name, params[:item_name], placeholder: 'Item name' %>
-  <%= submit_tag 'Search' %>
+<%= form_tag(market_url, method: :get, class: 'pure-form') do %>
+  <fieldset>
+    <div class="pure-g">
+      <div class="pure-u-4-5">
+        <%= text_field_tag :item_name, params[:item_name], class: 'pure-input-1',placeholder: 'Search for an item' %>
+      </div>
+      <div class="pure-u-1-5">
+        <%= submit_tag 'Search', class: 'pure-button pure-button-primary' %>
+      </div>
+    </div>
+  </fieldset>
 <% end %>
