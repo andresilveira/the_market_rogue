@@ -26,6 +26,6 @@ class ItemsController < ApplicationController
   end
 
   def item_params
-    params.require(:item).permit(:track_sellers)
+    params.require(:item).permit(:track_sellers, :track_buyers)
   end
 end

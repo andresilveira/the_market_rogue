@@ -6,7 +6,8 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Tracked</th>
+      <th>Tracking Sellers</th>
+      <th>Tracking Buyers</th>
       <th></th>
     </tr>
   </thead>
@@ -18,6 +19,13 @@
           <%= form_for item, namespace: item.id, html: { class: 'pure-form' } do |f| %>
             <%= f.label :track_sellers, class: 'pure-checkbox' do %>
               <%= f.check_box :track_sellers, onclick: "$(this.form).submit()" %>
+            <% end %>
+          <% end %>
+        </td>
+        <td class="is-center">
+          <%= form_for item, namespace: item.id, html: { class: 'pure-form' } do |f| %>
+            <%= f.label :track_buyers, class: 'pure-checkbox' do %>
+              <%= f.check_box :track_buyers, onclick: "$(this.form).submit()" %>
             <% end %>
           <% end %>
         </td>
