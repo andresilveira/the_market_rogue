@@ -19,3 +19,9 @@ class Offer < ActiveRecord::Base
     [refinement_string, item_name, slots_string].join(' ').strip
   end
 end
+
+class SellingOffer < Offer
+end
+
+class BuyingOffer < Offer
+end
