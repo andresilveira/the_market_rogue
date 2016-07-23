@@ -14,10 +14,20 @@ $(function(){
   }
 
   function offerToDataPoint(offer) {
-    return [
-      new Date(offer.created_at),
-      offer.price
-    ];
+    if (offer.type ==  "BuyingOffer") {
+      return [
+        new Date(offer.created_at),
+        null,
+        offer.price
+      ];
+    }
+    else {
+      return [
+        new Date(offer.created_at),
+        offer.price,
+        null
+      ];
+    }
   }
 
   function drawChart() {
@@ -33,11 +43,11 @@ $(function(){
         gridlines: { color: 'none' },
         minValue: 0
       },
-      trendlines: { 0: {} }
     };
 
     data.addColumn('datetime', 'Date');
-    data.addColumn('number', 'Price');
+    data.addColumn('number', 'Selling');
+    data.addColumn('number', 'Buying');
     data.addRows(offerData());
     chart.draw(data, options);
   }
