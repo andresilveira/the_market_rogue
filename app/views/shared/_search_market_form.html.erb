@@ -6,7 +6,7 @@
       </div>
       <div class="pure-u-1">
         <%= label_tag 'selling-offer-option', class: 'pure-radio' do %>
-          <%= radio_button_tag :offers_type, 'SellingOffer', params[:offers_type] == 'SellingOffer', id: 'selling-offer-option' %>
+          <%= radio_button_tag :offers_type, 'SellingOffer', params[:offers_type].nil? ? true : params[:offers_type] == 'SellingOffer', id: 'selling-offer-option' %>
           Selling Offers
         <% end %>
         <%= label_tag 'buying-offers-option', class: 'pure-radio' do %>
