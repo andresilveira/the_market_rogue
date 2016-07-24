@@ -9,7 +9,8 @@ class Offer < ActiveRecord::Base
     :price,
     :vendor,
     :shop_title,
-    :map_location
+    :map_location,
+    :type
   ]}
 
   def full_item_name
@@ -17,4 +18,10 @@ class Offer < ActiveRecord::Base
     slots_string = slots? ? "[#{slots}]" : ""
     [refinement_string, item_name, slots_string].join(' ').strip
   end
+end
+
+class SellingOffer < Offer
+end
+
+class BuyingOffer < Offer
 end

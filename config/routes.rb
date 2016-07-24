@@ -1,12 +1,7 @@
 Rails.application.routes.draw do
   resources :items, only: [:index, :show, :destroy, :update]
 
-  namespace :talon_ro do
-    namespace :selling_shops do
-      get '/', action: :index
-      get '/search', action: :search, as: :search
-    end
-  end
+  get 'TalonRO/search', to: 'talon_ro#search', as: :talon_ro_search
 
   root 'items#index'
 

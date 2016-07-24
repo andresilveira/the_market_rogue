@@ -1,11 +1,21 @@
-<%= form_tag(market_url, method: :get, class: 'pure-form') do %>
+<%= form_tag(search_url, method: :get, class: 'pure-form') do %>
   <fieldset>
     <div class="pure-g">
-      <div class="pure-u-4-5">
+      <div class="pure-u-1">
         <%= text_field_tag :item_name, params[:item_name], class: 'pure-input-1',placeholder: 'Search for an item' %>
       </div>
-      <div class="pure-u-1-5">
-        <%= submit_tag 'Search', class: 'pure-button pure-button-primary' %>
+      <div class="pure-u-1">
+        <%= label_tag 'selling-offer-option', class: 'pure-radio' do %>
+          <%= radio_button_tag :offers_type, 'SellingOffer', params[:offers_type].nil? ? true : params[:offers_type] == 'SellingOffer', id: 'selling-offer-option' %>
+          Selling Offers
+        <% end %>
+        <%= label_tag 'buying-offers-option', class: 'pure-radio' do %>
+          <%= radio_button_tag :offers_type, 'BuyingOffer', params[:offers_type] == 'BuyingOffer', id: 'buying-offers-option' %>
+          Buying Offers
+        <% end %>
+      </div>
+      <div class="pure-u-1 pure-u-lg-1-5">
+        <%= submit_tag 'Search', class: 'pure-button pure-button-primary pure-u-1' %>
       </div>
     </div>
   </fieldset>

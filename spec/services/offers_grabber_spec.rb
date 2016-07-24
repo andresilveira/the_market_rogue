@@ -13,45 +13,56 @@ RSpec.describe OffersGrabber do
   let(:offer_non_existing_item){ { item_name:  new_item.name }.merge(offer_fields) } 
 
   def stub_market_rogue result = []
-    allow(MarketRogue::TalonRO).to receive_message_chain(:new, scrap: result)
+    allow(MarketRogue::TalonRO).to receive_message_chain(:new, selling_item: result)
+    allow(MarketRogue::TalonRO).to receive_message_chain(:new, buying_item: result)
   end
 
+  describe 'offer types' do
+    it 'should be known' do
+      expect { OffersGrabber.new('item_name', :some_type) }.to raise_error(ArgumentError, /Offer type/)
+    end
+  end
 
   describe 'when initialized with an empty name or item not foud' do
     before { stub_market_rogue }
 
     describe '#offers' do
       it 'returns empty array' do
-        offers = OffersGrabber.new(nil).offers
+        offers = OffersGrabber.new(nil, :SellingOffer).offers
         expect(offers).to be_empty
       end
     end
   end
 
-  describe 'when there are offers' do
-    before { stub_market_rogue [existing_item_offer] }
-    let!(:grabber) { OffersGrabber.new(existing_item.name) }
+  OffersGrabber::OFFER_TYPES.each do |type|
+    describe "for #{type} offers" do
+      describe 'when there are results' do
+        before { stub_market_rogue [existing_item_offer] }
+        let!(:grabber) { OffersGrabber.new(existing_item.name, type) }
+        let!(:offers) { grabber.offers }
 
-    describe 'for a non existent item' do
-      before { stub_market_rogue [offer_non_existing_item] }
-      let!(:grabber) { OffersGrabber.new(new_item.name) }
+        describe 'for a non existent item' do
+          before { stub_market_rogue [offer_non_existing_item] }
+          let!(:grabber) { OffersGrabber.new(new_item.name, type) }
 
-      it 'creates the item' do
-        expect(Item.find_by(name: new_item.name)).to_not be_nil
+          it 'creates the item' do
+            expect(Item.find_by(name: new_item.name)).to_not be_nil
+          end
+        end
+
+        it 'creates the offers' do
+          expect(Offer.where(offer_fields.merge(type: type))).to_not be_empty
+        end
+
+        it 'attributes the offers to the item' do
+          offer = Offer.where(offer_fields.merge(type: type)).first
+          expect(offer.item.id).to eq(existing_item.id)
+        end
+
+        it '#offers should contain the offer with the existing item' do
+          expect(offers).to eq(Offer.all.to_a)
+        end
       end
-    end
-
-    it 'creates the offers' do
-      expect(Offer.where(offer_fields)).to_not be_empty
-    end
-
-    it 'attributes the offers to the item' do
-      offer = Offer.where(offer_fields).first
-      expect(offer.item.id).to eq(existing_item.id)
-    end
-
-    it '#offers should contain the offer with the existing item' do
-      expect(grabber.offers).to eq(Offer.all.to_a)
     end
   end
 end

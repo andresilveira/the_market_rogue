@@ -3,10 +3,11 @@ namespace :scheduled do
   task market_grabber: :environment do
     Rails.logger.info '[SCHEDULED] started at: ' + Time.now.to_s
 
-    Item.track_sellers.each do |item|
+    Item.tracked.each do |item|
       Rails.logger.info "[SCHEDULED] started item: #{item.name.to_s} - #{Time.now}"
 
-      OffersGrabber.new(item.name)
+      OffersGrabber.new(item.name, :SellingOffer).offers if item.track_sellers
+      OffersGrabber.new(item.name, :BuyingOffer).offers  if item.track_buyers
 
       Rails.logger.info "[SCHEDULED] finished item: #{item.name.to_s} - #{Time.now}"
     end

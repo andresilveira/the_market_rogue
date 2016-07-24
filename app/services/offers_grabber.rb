@@ -1,13 +1,36 @@
 class OffersGrabber
+  OFFER_TYPES = [:BuyingOffer, :SellingOffer]
 
-  attr_reader :offers
+  def initialize(item_name, offer_type)
+    @offer_type = check_offer_type(offer_type.to_sym)
+    @item_name = item_name
+  end
 
-  def initialize(item_name)
-    @results = market_agent.scrap(item_name)
-    @offers = create_offers_and_items_if_non_existent
+  def offers
+    @offers ||= create_offers_and_items_if_non_existent
   end
 
   private
+
+  def results
+    case @offer_type
+    when :BuyingOffer
+      @results ||= market_agent.buying_item(@item_name)
+    when :SellingOffer
+      @results ||= market_agent.selling_item(@item_name)
+    else
+      @results ||= []
+    end
+  end
+
+  def check_offer_type type
+    unless OFFER_TYPES.include?(type)
+      fail ArgumentError.new(
+        "Offer type: #{type} is unknown. Try one of #{OFFER_TYPES}"
+      )
+    end
+    type
+  end
 
   def create_offers_and_items_if_non_existent
     results_grouped_by_item.flat_map do |item_name, offers| 
@@ -17,12 +40,13 @@ class OffersGrabber
   end
 
   def results_grouped_by_item 
-    @results.group_by{ |offer| offer[:item_name] }
+    results.group_by{ |offer| offer[:item_name] }
   end
 
   def create_offer_for_item item_id, offer_attributes
     adapted_offer_attributes = MarketAdapters::TalonRO.new(offer_attributes).to_h
     adapted_offer_attributes[:item_id] = item_id
+    adapted_offer_attributes[:type] = @offer_type
     Offer.create(adapted_offer_attributes)
   end
 

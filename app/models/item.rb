@@ -4,5 +4,5 @@ class Item < ApplicationRecord
   # TODO: add the market to uniqueness scope
   validates :name, uniqueness: true
 
-  scope :track_sellers, -> { where(track_sellers: true) }
+  scope :tracked, -> { where(track_sellers: true).or(Item.where(track_buyers: true)) }
 end

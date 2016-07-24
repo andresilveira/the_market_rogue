@@ -1,6 +1,4 @@
 require 'rails_helper'
-# require_relative '../../../lib/market_adapters/talon_ro'
-
 
 RSpec.describe MarketAdapters::TalonRO do
   let(:adapter) {
