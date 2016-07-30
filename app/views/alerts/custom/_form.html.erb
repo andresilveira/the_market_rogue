@@ -1,0 +1,54 @@
+  <%= form_for(alert, url: alert.new_record? ? alerts_custom_index_url : alerts_custom_url(alert), html: { class: 'pure-form pure-form-stacked' }) do |f| %>
+    <% if alert.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(alert.errors.count, "error") %> prohibited this alert from being saved:</h2>
+
+        <ul>
+          <% alert.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <fieldset>
+      <div class="pure-g">
+        <div class="pure-u-1">
+          <%= f.label :item_id, class: 'pure-u-1' %>
+          <%= f.collection_select :item_id, Item.tracked, :id, :name, { prompt: true } , class: 'pure-u-1' %>
+        </div>
+
+        <div class="pure-u-1-3">
+          <div class="pure-g">
+            <%= f.label :operation, 'Price', class: 'pure-u-9-24' %>
+            <%= f.collection_select :operation, Alert::OPERATIONS, :to_s, :to_s, {}, class: 'pure-u-14-24' %>
+          </div>
+        </div>
+
+        <div class="pure-u-2-3">
+          <div class="pure-g">
+            <%= f.label :price, 'than', class: 'pure-u-5-24' %>
+            <%= f.number_field :price, placeholder: 'Price in Zeny', class: 'pure-u-19-24' %>
+            </div>
+        </div>
+
+        <%# TODO: set the radio_button by default %>
+        <div class="pure-u-1">
+          <div class="pure-g">
+            <%= label_tag 'selling-offer-option', class: 'pure-u-1-2 pure-radio' do %>
+              <%= f.radio_button :offer_type, 'SellingOffer', id: 'selling-offer-option' %>
+              Selling Offers
+            <% end %>
+            <%= label_tag 'buying-offers-option', class: 'pure-u-1-2 pure-radio' do %>
+              <%= f.radio_button :offer_type, 'BuyingOffer', id: 'buying-offers-option' %>
+              Buying Offers
+            <% end %>
+          </div>
+        </div>
+
+        <div class="pure-u-1 pure-u-lg-1-5">
+          <%= f.submit class: 'pure-button pure-button-primary pure-u-1' %>
+        </div>
+      </div>
+    </fieldset>
+  <% end %>
