@@ -26,6 +26,9 @@ gem 'jbuilder', '~> 2.5'
 # gem 'redis', '~> 3.0'
 gem 'sidekiq'
 
+# TODO: remove git when rails-ovservers releases the rails 5.0 compatibility
+gem 'rails-observers', git: 'https://github.com/rails/rails-observers'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
