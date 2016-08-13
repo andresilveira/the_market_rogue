@@ -20,8 +20,3 @@ class Offer < ActiveRecord::Base
   end
 end
 
-class SellingOffer < Offer
-end
-
-class BuyingOffer < Offer
-end
