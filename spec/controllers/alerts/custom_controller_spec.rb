@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe Alerts::CustomController, type: :controller do
   let(:item) { create(:item) }
   let(:valid_attributes) {
-    { item_id: item.id, price: 1000, operation: Alert::OPERATIONS.first, offer_type: 'Type' }
+    { item_id: item.id, price: 1000, operation: Alert::OPERATIONS[:greater_than_or_equal_to], offer_type: 'Type' }
   }
 
   let(:invalid_attributes) {
-    { item_id: item.id, price: nil, operation: Alert::OPERATIONS.first, offer_type: 'Type' }
+    { item_id: item.id, price: nil, operation: Alert::OPERATIONS[:greater_than_or_equal_to], offer_type: 'Type' }
   }
 
   let(:valid_session) { {} }
@@ -63,7 +63,7 @@ RSpec.describe Alerts::CustomController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        { item_id: item.id, price: 999, operation: Alert::OPERATIONS.first, offer_type: 'Type' }
+        { item_id: item.id, price: 999, operation: Alert::OPERATIONS[:greater_than_or_equal_to], offer_type: 'Type' }
       }
 
       it "updates the requested alert" do

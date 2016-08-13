@@ -21,7 +21,7 @@
         <div class="pure-u-1-3">
           <div class="pure-g">
             <%= f.label :operation, 'Price', class: 'pure-u-9-24' %>
-            <%= f.collection_select :operation, Alert::OPERATIONS, :to_s, :to_s, {}, class: 'pure-u-14-24' %>
+            <%= f.collection_select :operation, Alert::OPERATIONS, :last, :last, {}, class: 'pure-u-14-24' %>
           </div>
         </div>
 
