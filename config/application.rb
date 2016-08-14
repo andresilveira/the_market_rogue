@@ -15,8 +15,6 @@ module TheMarketRogue
     config.autoload_paths << Rails.root.join('lib')
     config.eager_load_paths << Rails.root.join('lib')
 
-    config.active_record.observers = :offer_observer
-
     config.active_job.queue_adapter = :sidekiq
   end
 end
