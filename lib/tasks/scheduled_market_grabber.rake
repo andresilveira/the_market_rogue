@@ -6,8 +6,9 @@ namespace :scheduled do
     Item.tracked.each do |item|
       Rails.logger.info "[SCHEDULED] started item: #{item.name.to_s} - #{Time.now}"
 
-      OffersGrabber.new(item.name, :SellingOffer).offers if item.track_sellers
-      OffersGrabber.new(item.name, :BuyingOffer).offers  if item.track_buyers
+      notifier = EmailNotifier.new
+      OffersGrabber.new(item.name, :SellingOffer, notifier).offers if item.track_sellers
+      OffersGrabber.new(item.name, :BuyingOffer, notifier).offers  if item.track_buyers
 
       Rails.logger.info "[SCHEDULED] finished item: #{item.name.to_s} - #{Time.now}"
     end

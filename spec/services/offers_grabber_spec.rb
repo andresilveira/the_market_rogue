@@ -38,7 +38,8 @@ RSpec.describe OffersGrabber do
     describe "for #{type} offers" do
       describe 'when there are results' do
         before { stub_market_rogue [existing_item_offer] }
-        let!(:grabber) { OffersGrabber.new(existing_item.name, type) }
+        let(:notifier) { double(:notifier, notify: true) }
+        let!(:grabber) { OffersGrabber.new(existing_item.name, type, notifier) }
         let!(:offers) { grabber.offers }
 
         describe 'for a non existent item' do
@@ -61,6 +62,11 @@ RSpec.describe OffersGrabber do
 
         it '#offers should contain the offer with the existing item' do
           expect(offers).to eq(Offer.all.to_a)
+        end
+
+        it 'asks the notifier to notify' do
+          expect(notifier).to receive(:notify)
+          OffersGrabber.new(existing_item.name, type, notifier).offers
         end
       end
     end
