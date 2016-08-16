@@ -49,7 +49,8 @@ class OffersGrabber
     adapted_offer_attributes = MarketAdapters::TalonRO.new(offer_attributes).to_h
     adapted_offer_attributes[:item_id] = item_id
     adapted_offer_attributes[:type] = @offer_type
-    if offer = Offer.create(adapted_offer_attributes)
+    offer = Offer.new(adapted_offer_attributes)
+    if offer.save 
       @notifier.notify(offer)
     end
     offer
