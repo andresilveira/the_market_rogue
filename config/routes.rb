@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :items, only: [:index, :show, :destroy, :update]
 
   get 'TalonRO/search', to: 'talon_ro#search', as: :talon_ro_search
