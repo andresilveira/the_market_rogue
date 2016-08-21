@@ -1,0 +1,34 @@
+<h1 class="content-head">Alerts</h1>
+
+<table class="pure-table pure-table-striped">
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Offer type</th>
+      <th colspan="2">Price</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @alerts.each do |alert| %>
+      <tr>
+        <td><%= alert.item.name %></td>
+        <td><%= alert.offer_type %></td>
+        <td><%= alert.operation %></td>
+        <td><%= alert.price %></td>
+        <td><%= link_to 'Edit', edit_alerts_custom_path(alert) %></td>
+        <td><%= link_to '×', alert_path(alert), class: 'pure-button button-danger button-small',method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Custom Alert', new_alerts_custom_path, class: 'pure-button pure-button-primary pure-u-1 pure-lg-1-5' %>
+
+<br>
+<br>
+
+<%= link_to_back url: root_path %>

@@ -1,0 +1,2 @@
+class SellingOffer < Offer
+end

@@ -1,9 +1,11 @@
+# TODO: dry out the Item creation and Notify responsibility
 class OffersGrabber
   OFFER_TYPES = [:BuyingOffer, :SellingOffer]
 
-  def initialize(item_name, offer_type)
+  def initialize(item_name, offer_type, notifier = ::NullNotifier.new)
     @offer_type = check_offer_type(offer_type.to_sym)
     @item_name = item_name
+    @notifier = notifier
   end
 
   def offers
@@ -35,7 +37,7 @@ class OffersGrabber
   def create_offers_and_items_if_non_existent
     results_grouped_by_item.flat_map do |item_name, offers| 
       item = Item.find_or_create_by(name: item_name)
-      offers.map { |offer| create_offer_for_item item.id, offer }
+      offers.map { |offer| create_offer_for_item_and_notify item.id, offer }
     end
   end
 
@@ -43,11 +45,15 @@ class OffersGrabber
     results.group_by{ |offer| offer[:item_name] }
   end
 
-  def create_offer_for_item item_id, offer_attributes
+  def create_offer_for_item_and_notify item_id, offer_attributes
     adapted_offer_attributes = MarketAdapters::TalonRO.new(offer_attributes).to_h
     adapted_offer_attributes[:item_id] = item_id
     adapted_offer_attributes[:type] = @offer_type
-    Offer.create(adapted_offer_attributes)
+    offer = Offer.new(adapted_offer_attributes)
+    if offer.save 
+      @notifier.notify(offer)
+    end
+    offer
   end
 
   def market_agent

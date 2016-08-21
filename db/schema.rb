@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160723130016) do
+ActiveRecord::Schema.define(version: 20160730153052) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "alerts", force: :cascade do |t|
+    t.integer  "item_id"
+    t.integer  "price"
+    t.string   "offer_type"
+    t.string   "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "operation"
+    t.index ["item_id"], name: "index_alerts_on_item_id", using: :btree
+    t.index ["type"], name: "index_alerts_on_type", using: :btree
+  end
 
   create_table "items", force: :cascade do |t|
     t.string   "name"
@@ -47,4 +59,5 @@ ActiveRecord::Schema.define(version: 20160723130016) do
     t.index ["type"], name: "index_offers_on_type", using: :btree
   end
 
+  add_foreign_key "alerts", "items"
 end
