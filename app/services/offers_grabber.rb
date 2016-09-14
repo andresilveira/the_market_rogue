@@ -50,8 +50,8 @@ class OffersGrabber
     adapted_offer_attributes[:item_id] = item_id
     adapted_offer_attributes[:type] = @offer_type
     offer = Offer.new(adapted_offer_attributes)
-    if offer.save 
-      @notifier.notify(offer)
+    if offer.save
+      @notifier.notify(offer.id)
     end
     offer
   end

@@ -38,7 +38,7 @@ RSpec.describe OffersGrabber do
     describe "for #{type} offers" do
       describe 'when there are results' do
         before { stub_market_rogue [existing_item_offer] }
-        let(:notifier) { double(:notifier, notify: true) }
+        let(:notifier) { spy(:notifier, notify: true) }
         let(:grabber) { OffersGrabber.new(existing_item.name, type, notifier) }
         subject { grabber }
 
@@ -68,8 +68,9 @@ RSpec.describe OffersGrabber do
         end
 
         it 'asks the notifier to notify' do
-          expect(notifier).to receive(:notify)
-          subject.offers
+          subject.offers.each  do |offer|
+            expect(notifier).to have_received(:notify).with(offer.id)
+          end
         end
       end
     end
